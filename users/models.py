@@ -1,6 +1,8 @@
 from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
 from django.db import models
 
+from projects.models import Project
+
 
 class CustomUserManager(BaseUserManager):
 	def create_user(self, email, first_name, password=None):
@@ -37,4 +39,22 @@ class CustomUser(AbstractBaseUser):
 
 	def has_module_perms(self, app_label):
 		return True
+
+
+class Contributor(models.Model):
+
+	PERMISSIONS = [
+		('P1', 'Permission 1'),
+		('P2', 'Permission 2'),
+	]
+
+	ROLES = [
+		('R1', 'Rôle 1'),
+		('R2', 'Rôle 2'),
+	]
+
+	user_id = models.ForeignKey(to=CustomUser, on_delete=models.CASCADE)
+	project_id = models.ForeignKey(to=Project, on_delete=models.CASCADE)
+	permission = models.CharField(choices=PERMISSIONS, max_length=128)
+	role = models.CharField(choices=ROLES, max_length=128)
 

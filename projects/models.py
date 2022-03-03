@@ -1,12 +1,18 @@
 from django.db import models
 
 
-class Issue(models.Model):
-    title = models.CharField(max_length=128)
-    description = models.CharField(max_length=128)
-    tag = models.CharField(max_length=128)
-    priority = models.CharField(max_length=128)
-    status = models.CharField(max_length=128)
-    #author_user_id = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    #assignee_user_id = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    created_time = models.DateTimeField(auto_now_add=True)
+class Project(models.Model):
+
+	PROJECT_TYPE = [
+		('BE', 'Back End'),
+		('FE', 'Front End'),
+		('IOS', 'IOS'),
+		('A', 'Android'),
+	]
+
+	title = models.CharField(max_length=64)
+	description = models.TextField(max_length=128, blank=True)
+	type = models.CharField(choices=PROJECT_TYPE, max_length=64)
+	#author_user_id = models.ForeignKey(to=Contributor, on_delete=models.CASCADE)
+
+

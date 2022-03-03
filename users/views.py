@@ -1,15 +1,16 @@
 from rest_framework.generics import CreateAPIView
 from rest_framework import response, status
 
-from .models import CustomUser
-from .serializers import UserSerializer
+from .serializers import CustomUserSerializer
 
 
 class SignUpAPIView(CreateAPIView):
 
+	serializer_class = CustomUserSerializer
+
 	def post(self, request, *args, **kwargs):
 		user = request.data
-		serializer = UserSerializer(data=user)
+		serializer = CustomUserSerializer(data=user)
 
 		if serializer.is_valid():
 			serializer.save()
