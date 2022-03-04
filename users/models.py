@@ -43,18 +43,12 @@ class CustomUser(AbstractBaseUser):
 
 class Contributor(models.Model):
 
-	PERMISSIONS = [
-		('P1', 'Permission 1'),
-		('P2', 'Permission 2'),
-	]
-
 	ROLES = [
-		('R1', 'Rôle 1'),
-		('R2', 'Rôle 2'),
+		("A", "Auteur"),
+		("C", "Contributeur"),
 	]
 
 	user_id = models.ForeignKey(to=CustomUser, on_delete=models.CASCADE)
-	project_id = models.ForeignKey(to=Project, on_delete=models.CASCADE)
-	permission = models.CharField(choices=PERMISSIONS, max_length=128)
+	project_id = models.ForeignKey(to=Project, on_delete=models.CASCADE, related_name="contributors")
 	role = models.CharField(choices=ROLES, max_length=128)
 

@@ -17,6 +17,5 @@ class ContributorAdmin(admin.ModelAdmin):
 	list_display = (
 		"user_id",
 		"project_id",
-		"permission",
 		"role"
 	)
