@@ -21,11 +21,8 @@ class ProjectViewset(ModelViewSet):
 		serialized_data = ProjectSerializer(data=data)
 		serialized_data.is_valid(raise_exception=True)
 		project = serialized_data.save()
-
 		contributor = Contributor.objects.create(user_id=request.user, project_id=project, role="Auteur")
 		contributor.save()
 
 		return response.Response(serialized_data.data, status=status.HTTP_201_CREATED)
-
-
 

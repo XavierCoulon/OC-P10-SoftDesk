@@ -16,7 +16,6 @@ class CustomUserManager(BaseUserManager):
 
 	def create_superuser(self, email, first_name, password=None):
 		user = self.create_user(email=email, first_name=first_name, password=password)
-		user.is_admin = True
 		user.is_staff = True
 		user.save()
 		return user
@@ -28,17 +27,10 @@ class CustomUser(AbstractBaseUser):
 	email = models.EmailField(unique=True, max_length=255, blank=False)
 	is_active = models.BooleanField(default=True)
 	is_staff = models.BooleanField(default=False)
-	is_admin = models.BooleanField(default=False)
 
 	USERNAME_FIELD = "email"
 	REQUIRED_FIELDS = ["first_name"]
 	objects = CustomUserManager()
-
-	def has_perm(self, perm, obj=None):
-		return True
-
-	def has_module_perms(self, app_label):
-		return True
 
 
 class Contributor(models.Model):
@@ -51,4 +43,5 @@ class Contributor(models.Model):
 	user_id = models.ForeignKey(to=CustomUser, on_delete=models.CASCADE)
 	project_id = models.ForeignKey(to=Project, on_delete=models.CASCADE, related_name="contributors")
 	role = models.CharField(choices=ROLES, max_length=128)
+
 

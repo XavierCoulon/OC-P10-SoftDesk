@@ -8,6 +8,6 @@ class ProjectSerializer(ModelSerializer):
 		fields = ["id", "title", "description", "type"]
 		extra_kwargs = {
 			"title": {"required": True},
-			"type": {"required": True}
+			"type": {"required": True},
 		}
 

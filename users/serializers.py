@@ -1,5 +1,5 @@
 from rest_framework.serializers import ModelSerializer
-from .models import CustomUser
+from .models import CustomUser, Contributor
 
 
 class CustomUserSerializer(ModelSerializer):
@@ -10,3 +10,9 @@ class CustomUserSerializer(ModelSerializer):
 
 	def create(self, validated_data):
 		return CustomUser.objects.create_user(**validated_data)
+
+
+class ContributorSerializer(ModelSerializer):
+	class Meta:
+		model = Contributor
+		fields = ["user_id", "project_id", "role"]

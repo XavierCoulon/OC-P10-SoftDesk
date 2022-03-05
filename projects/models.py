@@ -17,4 +17,12 @@ class Project(models.Model):
 	class Meta:
 		unique_together = ("title", "type")
 
+	# def save(self, *args, **kwargs):
+	# 	super().save(*args, **kwargs)
+	# 	print(self.pk)
+	# 	request = kwargs.pop("request")
+	# 	print(type(request))
+	# 	contributor = users.models.Contributor.objects.create(user_id="2", project_id=request.user, role="Auteur")
+	# 	contributor.save()
+
 
