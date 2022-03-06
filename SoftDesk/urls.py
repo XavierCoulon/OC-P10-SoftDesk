@@ -32,5 +32,4 @@ urlpatterns = [
     path('api/signup/', SignUpAPIView.as_view()),
     path('api/', include(router.urls)),
     path('api/projects/<int:pk>/users/', ContributorViewset.as_view({'get': 'list', 'post': 'create'})),
-    #path('api/projects/<int:pk>/users/', ContributorViewset.as_view({'post': 'create'}))
 ]

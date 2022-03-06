@@ -11,10 +11,15 @@ from users.models import Contributor
 class ProjectViewset(ModelViewSet):
 	serializer_class = ProjectSerializer
 	permission_classes = [IsAuthenticated, HasProjectPermission]
+	# queryset = Project.objects.all()
 
+	# Filter in queryset or in customed def list() ? /!\
 	def get_queryset(self):
 		user = self.request.user
-		return Project.objects.filter(contributors__user_id=user)
+		if self.request.method == "GET":
+			return Project.objects.filter(contributors__user_id=user)
+		else:
+			return Project.objects.all()
 
 	def create(self, request, *args, **kwargs):
 		data = request.data.copy()
@@ -25,4 +30,3 @@ class ProjectViewset(ModelViewSet):
 		contributor.save()
 
 		return response.Response(serialized_data.data, status=status.HTTP_201_CREATED)
-

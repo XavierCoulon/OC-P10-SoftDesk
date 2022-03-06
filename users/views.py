@@ -5,6 +5,7 @@ from rest_framework.permissions import IsAuthenticated
 
 from users.models import Contributor
 from .serializers import CustomUserSerializer, ContributorSerializer
+from projects.permissions import HasProjectPermission
 
 
 class SignUpAPIView(CreateAPIView):
@@ -24,7 +25,7 @@ class SignUpAPIView(CreateAPIView):
 
 class ContributorViewset(ModelViewSet):
 	serializer_class = ContributorSerializer
-	permission_classes = [IsAuthenticated, ]
+	permission_classes = [IsAuthenticated, HasProjectPermission]
 
 	def get_queryset(self, *args, **kwargs):
 		return Contributor.objects.filter(project_id=self.kwargs.get("pk"))
