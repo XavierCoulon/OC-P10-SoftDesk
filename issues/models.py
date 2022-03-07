@@ -4,29 +4,24 @@ from django.conf import settings
 from projects.models import Project
 
 
-PRIORITY = ["Faible", "Moyenne", "Elevée"]
-TAG = ["Bug", "Amélioration", "Tâche"]
-STATUS = ["A faire", "En cours", "Terminé"]
-
-
 class Issue(models.Model):
 
     PRIORITY = [
-        ('F', 'Faible'),
-        ('M', 'Moyenne'),
-        ('E', 'Elevée'),
+        ('Faible', 'Faible'),
+        ('Moyenne', 'Moyenne'),
+        ('Elevée', 'Elevée'),
     ]
 
     TAG = [
-        ('B', 'Bug'),
-        ('A', 'Amélioration'),
-        ('T', 'Tâche'),
+        ('Bug', 'Bug'),
+        ('Amélioration', 'Amélioration'),
+        ('Tâche', 'Tâche'),
     ]
 
     STATUS = [
-        ('A', 'A faire'),
-        ('E', 'En cours'),
-        ('T', 'Terminé'),
+        ('A faire', 'A faire'),
+        ('En cours', 'En cours'),
+        ('Terminé', 'Terminé'),
     ]
 
     title = models.CharField(max_length=64)

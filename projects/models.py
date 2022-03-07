@@ -1,13 +1,14 @@
+from django.core.exceptions import NON_FIELD_ERRORS
 from django.db import models
 
 
 class Project(models.Model):
 
 	PROJECT_TYPE = [
-		('BE', 'Back End'),
-		('FE', 'Front End'),
+		('Back End', 'Back End'),
+		('Front End', 'Front End'),
 		('IOS', 'IOS'),
-		('A', 'Android'),
+		('Android', 'Android'),
 	]
 
 	title = models.CharField(max_length=64)
@@ -16,13 +17,5 @@ class Project(models.Model):
 
 	class Meta:
 		unique_together = ("title", "type")
-
-	# def save(self, *args, **kwargs):
-	# 	super().save(*args, **kwargs)
-	# 	print(self.pk)
-	# 	request = kwargs.pop("request")
-	# 	print(type(request))
-	# 	contributor = users.models.Contributor.objects.create(user_id="2", project_id=request.user, role="Auteur")
-	# 	contributor.save()
 
 

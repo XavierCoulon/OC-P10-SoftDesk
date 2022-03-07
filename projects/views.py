@@ -30,3 +30,4 @@ class ProjectViewset(ModelViewSet):
 		contributor.save()
 
 		return response.Response(serialized_data.data, status=status.HTTP_201_CREATED)
+

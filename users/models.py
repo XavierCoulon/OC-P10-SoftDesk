@@ -44,4 +44,6 @@ class Contributor(models.Model):
 	project_id = models.ForeignKey(to=Project, on_delete=models.CASCADE, related_name="contributors")
 	role = models.CharField(choices=ROLES, max_length=128)
 
+	class Meta:
+		unique_together = ("user_id", "project_id")
 

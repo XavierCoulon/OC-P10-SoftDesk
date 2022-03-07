@@ -3,9 +3,10 @@ from rest_framework import response, status
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticated
 
-from users.models import Contributor
+from .models import Contributor
+
+from .permissions import HasContributorPermission
 from .serializers import CustomUserSerializer, ContributorSerializer
-from projects.permissions import HasProjectPermission
 
 
 class SignUpAPIView(CreateAPIView):
@@ -25,13 +26,14 @@ class SignUpAPIView(CreateAPIView):
 
 class ContributorViewset(ModelViewSet):
 	serializer_class = ContributorSerializer
-	permission_classes = [IsAuthenticated, HasProjectPermission]
+	permission_classes = [IsAuthenticated,] #HasContributorPermission]
 
 	def get_queryset(self, *args, **kwargs):
-		return Contributor.objects.filter(project_id=self.kwargs.get("pk"))
+		return Contributor.objects.filter(project_id=self.kwargs.get("project_pk"))
 
 	def create(self, request, *args, **kwargs):
 		data = request.data.copy()
+		data["project_id"] = self.kwargs.get("project_pk")
 		serialized_data = ContributorSerializer(data=data)
 		serialized_data.is_valid(raise_exception=True)
 		serialized_data.save()
