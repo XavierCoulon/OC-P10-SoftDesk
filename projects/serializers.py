@@ -1,5 +1,6 @@
 from rest_framework.serializers import ModelSerializer
 from .models import Project
+from users.models import Contributor
 
 
 class ProjectSerializer(ModelSerializer):
@@ -11,3 +12,7 @@ class ProjectSerializer(ModelSerializer):
 			"type": {"required": True},
 		}
 
+	def create(self, validated_data):
+		project = super().create(validated_data)
+		Contributor.objects.create(user_id=self.context["user"], project_id=project, role="Auteur")
+		return project

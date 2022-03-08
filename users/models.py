@@ -40,7 +40,7 @@ class Contributor(models.Model):
 		("C", "Contributeur"),
 	]
 
-	user_id = models.ForeignKey(to=CustomUser, on_delete=models.CASCADE)
+	user_id = models.ForeignKey(to=CustomUser, on_delete=models.CASCADE, related_name="contributors")
 	project_id = models.ForeignKey(to=Project, on_delete=models.CASCADE, related_name="contributors")
 	role = models.CharField(choices=ROLES, max_length=128)
 

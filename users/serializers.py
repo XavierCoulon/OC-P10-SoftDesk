@@ -8,6 +8,7 @@ class CustomUserSerializer(ModelSerializer):
 		fields = ["first_name", "email", "password"]
 		extra_kwargs = {'password': {'write_only': True}}
 
+	# Use to hash the password ?
 	def create(self, validated_data):
 		return CustomUser.objects.create_user(**validated_data)
 

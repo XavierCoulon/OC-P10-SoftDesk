@@ -25,9 +25,13 @@ from issues.views import IssueViewset
 router = routers.SimpleRouter()
 router.register("projects", ProjectViewset, basename="projects")
 
-projects_router = routers.NestedSimpleRouter(router, "projects", lookup="project")
-projects_router.register("issues", IssueViewset, basename="issue")
-projects_router.register("users", ContributorViewset, basename="users")
+contributor_router = routers.NestedSimpleRouter(router, "projects", lookup="project")
+contributor_router.register("users", ContributorViewset, basename="users")
+
+
+# projects_router = routers.NestedSimpleRouter(router, "projects", lookup="projects")
+# #projects_router.register("issues", IssueViewset, basename="issue")
+# projects_router.register("users", ContributorViewset, basename="users")
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -35,5 +39,5 @@ urlpatterns = [
     path('api/login/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/signup/', SignUpAPIView.as_view()),
     path('api/', include(router.urls)),
-    path('api/', include(projects_router.urls)),
+    path('api/', include(contributor_router.urls)),
 ]

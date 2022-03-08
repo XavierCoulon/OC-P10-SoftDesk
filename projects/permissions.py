@@ -5,10 +5,6 @@ from users.models import Contributor
 
 class HasProjectPermission(BasePermission):
 
-    # Rule implemented: all authenticated users can create a project
-    def has_permission(self, request, view):
-        return True
-
     def has_object_permission(self, request, view, obj):
         if request.method in SAFE_METHODS:
             return True
