@@ -20,7 +20,7 @@ from rest_framework_simplejwt.views import (TokenObtainPairView, TokenRefreshVie
 from rest_framework_nested import routers
 from users.views import SignUpAPIView, ContributorViewset
 from projects.views import ProjectViewset
-from issues.views import IssueViewset
+from issues.views import IssueViewset, CommentViewset
 
 router = routers.SimpleRouter()
 router.register("projects", ProjectViewset, basename="projects")
@@ -28,10 +28,11 @@ router.register("projects", ProjectViewset, basename="projects")
 contributor_router = routers.NestedSimpleRouter(router, "projects", lookup="project")
 contributor_router.register("users", ContributorViewset, basename="users")
 
+issue_router = routers.NestedSimpleRouter(router, "projects", lookup="project")
+issue_router.register("issues", IssueViewset, basename="issues")
 
-# projects_router = routers.NestedSimpleRouter(router, "projects", lookup="projects")
-# #projects_router.register("issues", IssueViewset, basename="issue")
-# projects_router.register("users", ContributorViewset, basename="users")
+comment_router = routers.NestedSimpleRouter(issue_router, "issues", lookup="issue")
+comment_router.register("comments", CommentViewset, basename="comments")
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -40,4 +41,6 @@ urlpatterns = [
     path('api/signup/', SignUpAPIView.as_view()),
     path('api/', include(router.urls)),
     path('api/', include(contributor_router.urls)),
+    path('api/', include(issue_router.urls)),
+    path('api/', include(comment_router.urls)),
 ]

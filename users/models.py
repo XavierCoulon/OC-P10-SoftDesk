@@ -36,8 +36,8 @@ class CustomUser(AbstractBaseUser):
 class Contributor(models.Model):
 
 	ROLES = [
-		("A", "Auteur"),
-		("C", "Contributeur"),
+		("Auteur", "Auteur"),
+		("Contributeur", "Contributeur"),
 	]
 
 	user_id = models.ForeignKey(to=CustomUser, on_delete=models.CASCADE, related_name="contributors")

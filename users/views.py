@@ -17,7 +17,6 @@ class SignUpAPIView(CreateAPIView):
 class ContributorViewset(ModelViewSet):
 	serializer_class = ContributorSerializer
 	permission_classes = [IsAuthenticated, HasContributorPermission]
-	queryset = Contributor.objects.all()
 
 	def get_queryset(self, *args, **kwargs):
 		return Contributor.objects.filter(project_id=self.kwargs.get("project_pk"))
