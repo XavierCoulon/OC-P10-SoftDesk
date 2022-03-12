@@ -26,10 +26,10 @@ router = routers.SimpleRouter()
 router.register("projects", ProjectViewset, basename="projects")
 
 contributor_router = routers.NestedSimpleRouter(router, "projects", lookup="project")
-contributor_router.register("users", ContributorViewset, basename="users")
+contributor_router.register("users", ContributorViewset, basename="project-user")
 
 issue_router = routers.NestedSimpleRouter(router, "projects", lookup="project")
-issue_router.register("issues", IssueViewset, basename="issues")
+issue_router.register("issues", IssueViewset, basename="project-issue")
 
 comment_router = routers.NestedSimpleRouter(issue_router, "issues", lookup="issue")
 comment_router.register("comments", CommentViewset, basename="comments")

@@ -7,21 +7,21 @@ from projects.models import Project
 class Issue(models.Model):
 
     PRIORITY = [
-        ('Faible', 'Faible'),
-        ('Moyenne', 'Moyenne'),
-        ('Elevée', 'Elevée'),
+        ("L", "Low"),
+        ("M", "Middle"),
+        ("H", "High"),
     ]
 
     TAG = [
-        ('Bug', 'Bug'),
-        ('Amélioration', 'Amélioration'),
-        ('Tâche', 'Tâche'),
+        ("B", "BUG"),
+        ("E", "ENHANCEMENT"),
+        ("T", "TASK"),
     ]
 
     STATUS = [
-        ('A faire', 'A faire'),
-        ('En cours', 'En cours'),
-        ('Terminé', 'Terminé'),
+        ("T", "TO DO"),
+        ("I", "IN PROGRESS"),
+        ("C", "CLOSED"),
     ]
 
     title = models.CharField(max_length=64)

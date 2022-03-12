@@ -14,5 +14,5 @@ class ProjectSerializer(ModelSerializer):
 
 	def create(self, validated_data):
 		project = super().create(validated_data)
-		Contributor.objects.create(user_id=self.context["user"], project_id=project, role="Auteur")
+		Contributor.objects.create(user_id=self.context["user"], project_id=project, role="Author")
 		return project

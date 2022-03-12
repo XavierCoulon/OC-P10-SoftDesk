@@ -8,6 +8,6 @@ class HasProjectPermission(BasePermission):
     def has_object_permission(self, request, view, obj):
         if request.method in SAFE_METHODS:
             return True
-        if Contributor.objects.filter(project_id=obj, user_id=request.user, role="Auteur"):
+        if Contributor.objects.filter(project_id=obj, user_id=request.user, role="Author"):
             print("permission OK")
             return True
