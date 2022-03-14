@@ -16,9 +16,10 @@ class IssueViewset(ModelViewSet):
 
 	def create(self, request, *args, **kwargs):
 		data = request.data.copy()
-		# where comes from self.kwars below ?
 		data["project_id"] = self.kwargs.get("project_pk")
 		data["author_user_id"] = request.user.id
+		if "assignee_user_id" not in data:
+			data["assignee_user_id"] = request.user.id
 		serialized_data = IssueSerializer(data=data)
 		serialized_data.is_valid(raise_exception=True)
 		serialized_data.save()

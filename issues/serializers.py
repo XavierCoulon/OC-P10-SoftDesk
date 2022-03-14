@@ -8,6 +8,11 @@ class IssueSerializer(ModelSerializer):
 		fields = "__all__"
 		read_field_only = ["id", "project_id", "author_user_id"]
 
+	def validate(self, data):
+		if not "assignee_user_id":
+			data["assignee_user_id"] = data["author_user_id"]
+		return data
+
 
 class CommentSerializer(ModelSerializer):
 	class Meta:

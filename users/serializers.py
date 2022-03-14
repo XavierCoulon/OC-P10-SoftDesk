@@ -16,5 +16,5 @@ class CustomUserSerializer(ModelSerializer):
 class ContributorSerializer(ModelSerializer):
 	class Meta:
 		model = Contributor
-		fields = "__all__"
+		fields = ["user_id", "project_id", "role"]
 		read_field_only = ["id", "project_id"]

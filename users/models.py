@@ -32,6 +32,12 @@ class CustomUser(AbstractBaseUser):
 	REQUIRED_FIELDS = ["first_name"]
 	objects = CustomUserManager()
 
+	def has_perm(self, perm, obj=None):
+		return True
+
+	def has_module_perms(self, perm, obj=None):
+		return True
+
 
 class Contributor(models.Model):
 
@@ -40,8 +46,8 @@ class Contributor(models.Model):
 		("Contributor", "Contributor"),
 	]
 
-	user_id = models.ForeignKey(to=CustomUser, on_delete=models.CASCADE, related_name="contributors")
-	project_id = models.ForeignKey(to=Project, on_delete=models.CASCADE, related_name="contributors")
+	user_id = models.ForeignKey(to=CustomUser, on_delete=models.CASCADE, related_name="contributor")
+	project_id = models.ForeignKey(to=Project, on_delete=models.CASCADE, related_name="contributor")
 	role = models.CharField(choices=ROLES, max_length=128)
 
 	class Meta:
