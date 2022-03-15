@@ -1,5 +1,7 @@
 from rest_framework.serializers import ModelSerializer
+from rest_framework.exceptions import ValidationError
 from .models import Issue, Comment
+from users.models import CustomUser
 
 
 class IssueSerializer(ModelSerializer):
@@ -8,10 +10,18 @@ class IssueSerializer(ModelSerializer):
 		fields = "__all__"
 		read_field_only = ["id", "project_id", "author_user_id"]
 
-	def validate(self, data):
-		if not "assignee_user_id":
-			data["assignee_user_id"] = data["author_user_id"]
-		return data
+	def create(self, validated_data):
+		if not CustomUser.objects.filter(
+			contributor__user_id=validated_data["assignee_user_id"],
+			contributor__project_id=validated_data["project_id"]):
+			raise ValidationError("Assigned user is not a contributor of the project")
+		return super().create(validated_data)
+
+	def update(self, instance, validated_data):
+		if "assignee_user_id" in validated_data and not CustomUser.objects.filter(
+			contributor__user_id=validated_data["assignee_user_id"], contributor__project_id=instance.project_id_id):
+			raise ValidationError("Assigned user is not a contributor of the project")
+		return super().update(instance, validated_data)
 
 
 class CommentSerializer(ModelSerializer):

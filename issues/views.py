@@ -23,7 +23,6 @@ class IssueViewset(ModelViewSet):
 		serialized_data = IssueSerializer(data=data)
 		serialized_data.is_valid(raise_exception=True)
 		serialized_data.save()
-
 		return response.Response(serialized_data.data, status=status.HTTP_201_CREATED)
 
 

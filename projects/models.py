@@ -1,4 +1,3 @@
-from django.core.exceptions import NON_FIELD_ERRORS
 from django.db import models
 
 
@@ -17,5 +16,3 @@ class Project(models.Model):
 
 	class Meta:
 		unique_together = ("title", "type")
-
-

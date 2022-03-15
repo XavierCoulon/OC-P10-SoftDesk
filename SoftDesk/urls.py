@@ -18,7 +18,7 @@ from django.urls import path, include
 
 from rest_framework_simplejwt.views import (TokenObtainPairView, TokenRefreshView)
 from rest_framework_nested import routers
-from users.views import SignUpAPIView, ContributorViewset
+from users.views import SignUpAPIView, ContributorViewset, CustomUserViewset
 from projects.views import ProjectViewset
 from issues.views import IssueViewset, CommentViewset
 
@@ -34,13 +34,15 @@ issue_router.register("issues", IssueViewset, basename="project-issue")
 comment_router = routers.NestedSimpleRouter(issue_router, "issues", lookup="issue")
 comment_router.register("comments", CommentViewset, basename="comments")
 
+
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('api/login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('api/login/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('api/signup/', SignUpAPIView.as_view()),
-    path('api/', include(router.urls)),
-    path('api/', include(contributor_router.urls)),
-    path('api/', include(issue_router.urls)),
-    path('api/', include(comment_router.urls)),
+    path("admin/", admin.site.urls),
+    path("api/login/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
+    path("api/login/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
+    path("api/signup/", SignUpAPIView.as_view()),
+    path("api/", include(router.urls)),
+    path("api/", include(contributor_router.urls)),
+    path("api/", include(issue_router.urls)),
+    path("api/", include(comment_router.urls)),
+    path("api/rgpd/user/<int:pk>", CustomUserViewset.as_view({"get": "retrieve", "delete": "destroy"}), name="rgpd")
 ]

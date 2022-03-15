@@ -1,4 +1,3 @@
-from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticated
 
@@ -12,7 +11,7 @@ class ProjectViewset(ModelViewSet):
 	permission_classes = [IsAuthenticated, HasProjectPermission]
 
 	def get_queryset(self):
-		return Project.objects.filter(contributors__user_id=self.request.user)
+		return Project.objects.filter(contributor__user_id=self.request.user)
 
 	def get_serializer_context(self):
 		context = super().get_serializer_context()

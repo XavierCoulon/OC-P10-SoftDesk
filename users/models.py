@@ -52,4 +52,3 @@ class Contributor(models.Model):
 
 	class Meta:
 		unique_together = ("user_id", "project_id")
-
