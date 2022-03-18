@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticated
 
-from .models import Contributor, CustomUser
+from .models import Contributor
 
 from .permissions import HasContributorPermission
 from .serializers import CustomUserSerializer, ContributorSerializer
@@ -29,13 +29,3 @@ class ContributorViewset(ModelViewSet):
 		serialized_data.save()
 
 		return Response(serialized_data.data, status=status.HTTP_201_CREATED)
-
-
-class CustomUserViewset(ModelViewSet):
-	serializer_class = CustomUserSerializer
-	queryset = CustomUser.objects.all()
-
-	# def get_queryset(self, *args, **kwargs):
-	# 	print(self.request.user.id)
-	# 	print(CustomUser.objects.filter(id=self.request.user.id))
-	# 	return CustomUser.objects.filter(id=self.request.user.id)

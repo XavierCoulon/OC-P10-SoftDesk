@@ -18,13 +18,14 @@ from django.urls import path, include
 
 from rest_framework_simplejwt.views import (TokenObtainPairView, TokenRefreshView)
 from rest_framework_nested import routers
-from users.views import SignUpAPIView, ContributorViewset, CustomUserViewset
+from users.views import SignUpAPIView, ContributorViewset
 from projects.views import ProjectViewset
 from issues.views import IssueViewset, CommentViewset
 
 router = routers.SimpleRouter()
 router.register("projects", ProjectViewset, basename="projects")
 
+# Use library DRF-Nested-Routers to handle URLs
 contributor_router = routers.NestedSimpleRouter(router, "projects", lookup="project")
 contributor_router.register("users", ContributorViewset, basename="project-user")
 
@@ -44,5 +45,4 @@ urlpatterns = [
     path("api/", include(contributor_router.urls)),
     path("api/", include(issue_router.urls)),
     path("api/", include(comment_router.urls)),
-    path("api/rgpd/user/<int:pk>", CustomUserViewset.as_view({"get": "retrieve", "delete": "destroy"}), name="rgpd")
 ]

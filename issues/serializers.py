@@ -11,6 +11,7 @@ class IssueSerializer(ModelSerializer):
 		read_field_only = ["id", "project_id", "author_user_id"]
 
 	def create(self, validated_data):
+		# Check if the assignee is contributor of the project
 		if not CustomUser.objects.filter(
 			contributor__user_id=validated_data["assignee_user_id"],
 			contributor__project_id=validated_data["project_id"]):
@@ -18,6 +19,7 @@ class IssueSerializer(ModelSerializer):
 		return super().create(validated_data)
 
 	def update(self, instance, validated_data):
+		# Check if the assignee is contributor of the project
 		if "assignee_user_id" in validated_data and not CustomUser.objects.filter(
 			contributor__user_id=validated_data["assignee_user_id"], contributor__project_id=instance.project_id_id):
 			raise ValidationError("Assigned user is not a contributor of the project")

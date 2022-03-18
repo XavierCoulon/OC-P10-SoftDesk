@@ -18,6 +18,7 @@ class IssueViewset(ModelViewSet):
 		data = request.data.copy()
 		data["project_id"] = self.kwargs.get("project_pk")
 		data["author_user_id"] = request.user.id
+		# Assignee = author by default
 		if "assignee_user_id" not in data:
 			data["assignee_user_id"] = request.user.id
 		serialized_data = IssueSerializer(data=data)

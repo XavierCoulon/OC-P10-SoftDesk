@@ -15,5 +15,6 @@ class ProjectViewset(ModelViewSet):
 
 	def get_serializer_context(self):
 		context = super().get_serializer_context()
+		# Will use 'user' to create automatically a contributor / author of the project
 		context["user"] = self.request.user
 		return context
